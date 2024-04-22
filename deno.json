@@ -1,0 +1,26 @@
+{
+  "tasks": {
+    "stop": "pm2 stop duolingo",
+    "start": "pm2 start --interpreter='deno' --interpreter-args='run --unstable-kv --unstable-cron -A' --name duolingo index.ts && pm2 logs duolingo",
+    "logs": "pm2 logs duolingo",
+    "reload": "pm2 reload duolingo && pm2 logs duolingo",
+    "check": "deno check index.ts",
+    "run": "deno run --unstable-kv --unstable-cron -A index.ts",
+    "watch": "deno run --watch --unstable-kv --unstable-cron -A index.ts",
+    "run:molt": "deno run --allow-env --allow-read --allow-write=. --allow-run=git,deno --allow-net=deno.land,esm.sh,cdn.jsdelivr.net https://deno.land/x/molt/cli.ts",
+    "update_deps": "deno task -q run:molt ./**/*.ts --write"
+  },
+  "imports": {
+    "axiod": "https://deno.land/x/axiod@0.26.2/mod.ts",
+    "dotenv": "https://deno.land/std@0.217.0/dotenv/load.ts",
+    "escapeHtml": "https://deno.land/x/escape_html@1.0.0/mod.ts",
+    "grammy-runner": "https://deno.land/x/grammy_runner@v2.0.3/mod.ts",
+    "grammy/": "https://deno.land/x/grammy@v1.21.1/",
+    "humanizer/": "https://deno.land/x/humanizer@1.1/",
+    "joi": "https://esm.sh/joi@17.12.2/",
+    "kvdex": "https://deno.land/x/kvdex@0.34.1/mod.ts",
+    "moment": "npm:moment@2.30.1",
+    "std/": "https://deno.land/std@0.215.0/",
+    "zod": "https://deno.land/x/zod@v3.22.4/mod.ts"
+  }
+}
