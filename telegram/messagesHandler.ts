@@ -1,4 +1,5 @@
 import moment from "moment";
+import { lodash } from "lodash";
 import { USER_ID } from "../env.ts";
 import { escapeHtml } from "escapeHtml";
 import { Composer } from "grammy/mod.ts";
@@ -31,16 +32,16 @@ messagesHandler.on("message:text", async (ctx) => {
     position: (i + 1).toString().padEnd(2),
   }));
 
-  const longestName = users.reduce((acc, user) => (user.name.length > acc ? user.name.length : acc), 0);
+  // const longestName = users.reduce((acc, user) => (user.name.length > acc ? user.name.length : acc), 0);
+  const longestName = lodash.maxBy(users, (user) => user.name.length)!.name.length;
+  const greatestScore = lodash.maxBy(users, (user) => user.score)!.score.toString().length;
 
   for (const user of users)
-    if (user.id === USER_ID) {
-      message += `\n${user.position} ⭐️ ${"Tú".padEnd(longestName)} - ${user.score}`;
-    } else {
+    if (user.id === USER_ID) message += `\n${user.position} ⭐️ ${"Yo".padEnd(longestName)} - ${user.score}`;
+    else
       message +=
         `\n${user.position} ${user.online ? "🟢" : "🔴"} ${user.name.padEnd(longestName)}` +
-        ` - ${user.score} - ${user.difference}`;
-    }
+        ` - ${user.score.toString().padEnd(greatestScore)} - ${user.difference}`;
 
   // How much time left for the contest to end
   const duration = moment.duration(moment(rankingData.contest.contest_end).diff());
@@ -51,7 +52,7 @@ messagesHandler.on("message:text", async (ctx) => {
   if (hours) durationData.push("hora".toQuantity(hours));
   const minutes = duration.minutes();
   if (minutes) durationData.push("minuto".toQuantity(minutes));
-  message += `\n\nTiempo restante: ${durationData.join(", ")}.`;
+  message += `\n\n${durationData.join(", ")}.`;
 
   await ctx.reply(`<code>${escapeHtml(message)}</code>`, { parse_mode: "HTML" });
 });

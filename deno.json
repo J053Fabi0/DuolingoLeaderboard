@@ -19,6 +19,7 @@
     "humanizer/": "https://deno.land/x/humanizer@1.1/",
     "joi": "https://esm.sh/joi@17.12.2/",
     "kvdex": "https://deno.land/x/kvdex@0.34.1/mod.ts",
+    "lodash": "https://deno.land/x/deno_ts_lodash@0.0.1/mod.ts",
     "moment": "npm:moment@2.30.1",
     "std/": "https://deno.land/std@0.215.0/",
     "zod": "https://deno.land/x/zod@v3.22.4/mod.ts"
